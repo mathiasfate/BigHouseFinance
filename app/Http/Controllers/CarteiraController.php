@@ -12,7 +12,8 @@ class CarteiraController extends Controller
      */
     public function index()
     {
-        //
+        $carteiras = Carteira::all();
+        return view('carteira.index', compact('carteiras'));
     }
 
     /**
@@ -34,7 +35,7 @@ class CarteiraController extends Controller
         ]);
 
         $carteira->save();
-        return redirect()->route('dashboard');
+        return redirect()->route('carteira.index');
     }
 
     /**
@@ -42,7 +43,8 @@ class CarteiraController extends Controller
      */
     public function show(string $id)
     {
-        //
+         $carteira = Carteira::findOrFail($id);
+         return view('carteira.carteira', compact('carteira'));
     }
 
     /**
@@ -66,6 +68,8 @@ class CarteiraController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $carteira = Carteira::findOrFail($id);
+         $carteira->delete();
+         return redirect()->route('carteira.index');
     }
 }

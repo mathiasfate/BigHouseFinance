@@ -1,6 +1,6 @@
 ![PHP Badge](https://img.shields.io/badge/PHP-8.2.4-blue)
 ![Laravel Badge](https://img.shields.io/badge/Laravel-%2010.18-red)
-![JUnit Badge](https://img.shields.io/badge/License-%20MIT-green)
+![License Badge](https://img.shields.io/badge/License-%20MIT-green)
 
 # BigHouse Finance 💰
 
@@ -8,7 +8,7 @@ BigHouse Finance é um site de gestão de finanças com o objetivo de gerenciar 
 
 ## Especificações
 
-As documentações das especificações do projeto podem ser encontradas nessa [pasta](https://github.com/mathiasfate/BigHouseFinance/tree/main/docs).
+As documentações das especificações do projeto podem ser encontradas nessa [pasta](https://github.com/mathiasfate/BigHouseFinance/tree/master/docs).
 
 ## Pré Requisitos
 - [PHP 8.2.4](https://www.php.net/downloads.php)

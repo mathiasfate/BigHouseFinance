@@ -9,8 +9,8 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <form action="{{ route('carteira.create') }}" method="PUT">
-    <button class="btn btn-primary btn-block mb-4">Criar carteira</button>
+    <form action="{{ route('carteira.index') }}" method="PUT">
+    <button class="btn btn-primary btn-block mb-4">Carteiras</button>
     </form>
     
     <div class="py-12">
