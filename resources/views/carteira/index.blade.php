@@ -1,9 +1,12 @@
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/carteira/index.css') }}">
-    <div class="container">
+<link rel="stylesheet" href="{{ asset('css/carteira/index.css') }}">
+<body>
+<div class="container">
         {{-- <h1>Lista de Carteiras</h1> --}}
         <br>
-        <a href="{{ route('carteira.create') }}" class="btn btn-primary">Nova Carteira</a>
+        <div class="col-sm-12 text-right">
+            <a href="{{ route('carteira.create') }}" class="btn btn-primary">Nova Carteira</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -32,4 +35,5 @@
             </tbody>
         </table>
     </div>
+</body>  
 </x-app-layout>

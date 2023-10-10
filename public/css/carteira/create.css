@@ -1,0 +1,9 @@
+.container{
+    padding-top: 15px;
+}
+.btnVoltar{
+    margin-left: 10px;
+    
+}
+.btn-primary{color:#000000;background-color:#F3F4F6;border-color:#000000}
+.btn-primary:hover{color:#000000;background-color:#fff;border-color:#000000}
