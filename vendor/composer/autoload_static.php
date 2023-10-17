@@ -119,6 +119,7 @@ class ComposerStaticInit71df4c1fee08222e3502a7ed52a6c6a1
         ),
         'L' => 
         array (
+            'Lucascudo\\LaravelPtBRLocalization\\' => 34,
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\Local\\' => 23,
             'League\\Flysystem\\' => 17,
@@ -392,6 +393,10 @@ class ComposerStaticInit71df4c1fee08222e3502a7ed52a6c6a1
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
+        'Lucascudo\\LaravelPtBRLocalization\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lucascudo/laravel-pt-br-localization/src',
+        ),
         'League\\MimeTypeDetection\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
@@ -541,7 +546,10 @@ class ComposerStaticInit71df4c1fee08222e3502a7ed52a6c6a1
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\CarteiraController' => __DIR__ . '/../..' . '/app/Http/Controllers/CarteiraController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DespesaController' => __DIR__ . '/../..' . '/app/Http/Controllers/DespesaController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\ReceitaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReceitaController.php',
+        'App\\Http\\Controllers\\TransferenciaController' => __DIR__ . '/../..' . '/app/Http/Controllers/TransferenciaController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -555,6 +563,9 @@ class ComposerStaticInit71df4c1fee08222e3502a7ed52a6c6a1
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\Carteira' => __DIR__ . '/../..' . '/app/Models/Carteira.php',
+        'App\\Models\\Despesa' => __DIR__ . '/../..' . '/app/Models/Despesa.php',
+        'App\\Models\\Receita' => __DIR__ . '/../..' . '/app/Models/Receita.php',
+        'App\\Models\\Transferencia' => __DIR__ . '/../..' . '/app/Models/Transferencia.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -674,6 +685,7 @@ class ComposerStaticInit71df4c1fee08222e3502a7ed52a6c6a1
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
+        'Database\\Seeders\\CarteirasTableSeeder' => __DIR__ . '/../..' . '/database/seeders/CarteirasTableSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
@@ -3220,6 +3232,7 @@ class ComposerStaticInit71df4c1fee08222e3502a7ed52a6c6a1
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'Lucascudo\\LaravelPtBRLocalization\\LaravelPtBRLocalizationServiceProvider' => __DIR__ . '/..' . '/lucascudo/laravel-pt-br-localization/src/LaravelPtBRLocalizationServiceProvider.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',

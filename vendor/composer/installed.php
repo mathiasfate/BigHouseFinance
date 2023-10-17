@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'b371ad596ac74535e09949622f6717f3c8e0cdc8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -380,9 +380,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'b371ad596ac74535e09949622f6717f3c8e0cdc8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -486,6 +486,15 @@
             'install_path' => __DIR__ . '/../league/mime-type-detection',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'lucascudo/laravel-pt-br-localization' => array(
+            'pretty_version' => 'v2.0.4',
+            'version' => '2.0.4.0',
+            'reference' => '49589685da70d66a391fbeb05e5cf7aa0f9cf848',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lucascudo/laravel-pt-br-localization',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'mockery/mockery' => array(
             'pretty_version' => '1.6.6',

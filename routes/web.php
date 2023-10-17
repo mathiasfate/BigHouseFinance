@@ -16,8 +16,14 @@ use App\Http\Controllers\CarteiraController;
 */
 Route::resource('carteira', CarteiraController::class);
 
+Route::resource('despesa', DespesaController::class);
+
+Route::resource('receita', ReceitaController::class);
+
+Route::resource('transferencia', TransferenciaController::class);
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {

@@ -20,7 +20,10 @@ git clone "https://github.com/mathiasfate/BigHouseFinance.git"
 cd BigHouseFinance
 php artisan serve
 ```
-
+## Seeders
+```
+php artisan db:seed --class=CarteirasTableSeeder
+```
 ## Funcionalidades
 
 ### Login/Cadastro
