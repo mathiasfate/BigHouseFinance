@@ -19,6 +19,14 @@ As documentações das especificações do projeto podem ser encontradas nessa [
 git clone "https://github.com/mathiasfate/BigHouseFinance.git"
 cd BigHouseFinance
 php artisan serve
+npm run dev
+```
+## Configuração da database
+Utilizando o postgreSQL
+- Criar uma database chamada bighousefinance
+- Utilizar o comando a seguir no terminal
+```
+php artisan migrate
 ```
 ## Seeders
 ```
