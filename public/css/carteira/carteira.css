@@ -7,3 +7,42 @@
 }
 .btn-primary{color:#000000;background-color:#F3F4F6;border-color:#000000}
 .btn-primary:hover{color:#000000;background-color:#fff;border-color:#000000}
+.scrollBoxDespesa{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.scrollBoxReceita{
+    margin-top: 20px;
+    margin-left: 30px;
+}
+.cardCarteira{
+    margin: 3px;
+    padding: 5px;
+}
+.scrollBoxEditButton{
+    width: 40px; 
+    height: 40px;
+    margin-left: 240px;
+}
+.scrollBoxDeleteButton{
+    width: 40px; 
+    height: 40px;
+    margin-left: 5px;
+}
+.scrollBoxNewButtonReceita{
+    width: 40px; 
+    height: 40px;
+    margin-left: 280px;
+}
+.scrollBoxNewButtonDespesa{
+    width: 40px; 
+    height: 40px;
+    margin-left: 267px;
+}
+.card_text{
+    padding-left: 20px;
+}
+.headerText{
+    margin-top: 10px;
+    margin-left:8px;
+}
