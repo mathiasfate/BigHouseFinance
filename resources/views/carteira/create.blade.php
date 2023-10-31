@@ -18,7 +18,7 @@
   </div>
   <div class="form-outline mb-4">
     <label class="form-label" for="saldo">Saldo inicial: </label>
-    <input type="number" name="saldo" class="form-control" />
+    <input type="number" name="saldo" class="form-control" required />
   </div>
   <div class="row">
     <div class="col-sm-12 text-left">

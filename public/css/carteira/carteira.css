@@ -5,6 +5,13 @@
     margin-left: 15px;
     
 }
+.box {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.box::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
 .btn-primary{color:#000000;background-color:#F3F4F6;border-color:#000000}
 .btn-primary:hover{color:#000000;background-color:#fff;border-color:#000000}
 .scrollBoxDespesa{
@@ -19,25 +26,30 @@
     margin: 3px;
     padding: 5px;
 }
+.cardText{
+    display: inline-block;
+    width: 270px;
+    text-overflow: "";
+}
 .scrollBoxEditButton{
-    width: 40px; 
+    width: 48px; 
     height: 40px;
-    margin-left: 240px;
+    margin-left: 0px;
 }
 .scrollBoxDeleteButton{
-    width: 40px; 
+    width: 48px; 
     height: 40px;
     margin-left: 5px;
 }
 .scrollBoxNewButtonReceita{
-    width: 40px; 
+    width: 48px; 
     height: 40px;
-    margin-left: 280px;
+    margin-left: 270px;
 }
 .scrollBoxNewButtonDespesa{
-    width: 40px; 
+    width: 48px; 
     height: 40px;
-    margin-left: 267px;
+    margin-left: 257px;
 }
 .card_text{
     padding-left: 20px;
