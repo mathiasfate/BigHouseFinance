@@ -28,7 +28,14 @@ class DespesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $despesa = new Despesa([
+            'idCarteira' => $request->input('idCarteira'),
+            'nome' => $request->input('nome'),
+            'valor' => $request->input('valor')
+        ]);
+
+        $despesa->save();
+        return redirect()->route('carteira.show');
     }
 
     /**
@@ -60,6 +67,8 @@ class DespesaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $despesa = Despesa::findOrFail($id);
+        $despesa->delete();
+        return redirect()->route('carteira.index');
     }
 }

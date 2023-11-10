@@ -28,7 +28,14 @@ class ReceitaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $receita = new Receita([
+            'idCarteira' => $request->input('idCarteira'),
+            'nome' => $request->input('nome'),
+            'valor' => $request->input('valor')
+        ]);
+
+        $receita->save();
+        return redirect()->route('carteira.index');
     }
 
     /**
@@ -60,6 +67,8 @@ class ReceitaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $receita = Receita::findOrFail($id);
+        $receita->delete();
+        return redirect()->route('carteira.index');
     }
 }

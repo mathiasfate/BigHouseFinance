@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Carteira;
+use App\Models\Despesa;
+use App\Models\Receita;
+use App\Models\User;
 
 class CarteiraController extends Controller
 {
@@ -44,7 +47,10 @@ class CarteiraController extends Controller
     public function show(string $id)
     {
          $carteira = Carteira::findOrFail($id);
-         return view('carteira.carteira', compact('carteira'));
+         $user = User::findOrFail($carteira->idUsuario);
+         $despesas = Despesa::all()->where('idCarteira', $id);
+         $receitas = Receita::all()->where('idCarteira', $id);
+         return view('carteira.carteira', compact('carteira', 'despesas', 'receitas', 'user'));
     }
 
     /**
@@ -52,7 +58,7 @@ class CarteiraController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -60,7 +66,10 @@ class CarteiraController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $carteira = Carteira::findOrFail($id);
+        $carteira->saldo = $request->input('valor'); 
+        $carteira->save();
+        return redirect()->route('carteira.index');
     }
 
     /**

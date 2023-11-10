@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CarteiraController;
+use App\Http\Controllers\DespesaController;
+use App\Http\Controllers\ReceitaController;
+use App\Http\Controllers\TransferenciaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
