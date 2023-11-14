@@ -16,6 +16,17 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
+
+function calculaBalanco(){
+    var arr = document.getElementsByName('valorDespesa');
+    var total = 0;
+    for(var i=0;i<arr.length;i++){
+        if(parseFloat(arr[i].value))
+            total += parseFloat(arr[i].value);
+            console.log(parseFloat(arr[i].value));
+    }
+    console.log(total);
+}
 function modalDeposito(){
   Swal.fire({
   title: 'Depósito',
@@ -40,25 +51,26 @@ function modalDeposito(){
 function modalTransferencia(){
   Swal.fire({
   title: 'Transferência',
-  html: `
+  html: ` 
+        <form action="{{ route('carteira.transfer', $carteira->id  ) }}" method="POST">
+          @csrf
+          @method('PUT')
           <label for="carteiras">Carteira destino: </label>
           <select name="carteiras" id="carteiras">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select><br><br>
-          <input type="number" id="valorTransferencia" class="swal2-input" placeholder="R$ 0.00">`,
-  confirmButtonText: 'Transferir',
-  showCancelButton: true,
-  cancelButtonText: 'Voltar',
-  focusConfirm: false,
+          @foreach ($listaCarteiras as $carteiraDestino)
+            <option value="{{$carteiraDestino->id}}">{{$carteiraDestino->id}}</option>
+            @endforeach  
+          </select>
+          <input type="number" id="valor" name="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
+          <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+        </form>`,
+  showConfirmButton: false,
   preConfirm: () => {
-    const valorTransferencia = Swal.getPopup().querySelector('#valorTransferencia').value
+    const valorTransferencia = Swal.getPopup().querySelector('#valor').value
     if (!valorTransferencia) {
       Swal.showValidationMessage(`Valor é obrigatório`)
     }
-    return { valorTransferencia: valorTransferencia }
+    return { valor: valor }
   }
 }).then((result) => {
 })
@@ -67,12 +79,15 @@ function modalTransferencia(){
 function modalBalanco(){
   Swal.fire({
   title: 'Calcular balanço',
-  html: ` <label for="valorFinal">Saldo final:</label>
-          <input name="valorFinal" id="valorFinal" type="number" id="valorBalanço" class="swal2-input" placeholder="R$ 0.00" disabled>`,
-  confirmButtonText: 'Efetuar',
-  showCancelButton: true,
-  cancelButtonText: 'Voltar',
-  focusConfirm: false,
+  html: ` <form action="{{ route('carteira.calc', $carteira->id  ) }}" method="PUT">
+          @csrf
+          @method('PUT')
+          <label for="valor">Saldo final:</label>
+          <input name="valor" id="valor" type="number" class="swal2-input" placeholder="R$ 0.00" disabled>
+          
+          </form>
+          <div onclick='calculaBalanco()' type="submit" class="btn btn-primary btn-lg">Cadastrar</div>`,
+  showConfirmButton: true,
   preConfirm: () => {
   }
 }).then((result) => {
@@ -178,8 +193,11 @@ function modalReceitas(){
       <div class="row">
         <div class="card_text">     
           <h3 class="title ">Nome: {{$despesa->nome}}</h3>
-          <div class="summary cardText">
-            Custo: R${{$despesa->valor}}
+          <div class="summary cardText valorDespesa">
+            Custo:
+          </div>
+          <div name="valorDespesa" class="summary cardText">
+            {{$despesa->valor}}
           </div>
         </div>
         <form action="{{ route('despesa.destroy', $despesa->id) }}" method="POST">
@@ -203,7 +221,7 @@ function modalReceitas(){
       <div class="row">
         <div class="card_text">     
           <h3 class="title">Nome: {{$receita->nome}}</h3>
-          <div class="summary cardText">
+          <div name="valorReceita" class="summary cardText">
             Valor: R${{$receita->valor}}
           </div>
         </div>

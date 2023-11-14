@@ -35,7 +35,7 @@ class DespesaController extends Controller
         ]);
 
         $despesa->save();
-        return redirect()->route('carteira.show');
+        return redirect()->route('carteira.index');
     }
 
     /**
