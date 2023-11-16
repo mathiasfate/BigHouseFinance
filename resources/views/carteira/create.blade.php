@@ -11,6 +11,7 @@
     <div class="form-outline mb-4">
       <label class="form-label" for="form6Example1">Nome: </label>
       <input type="text" id="form6Example1" class="form-control" value="{{$user->name}}" disabled/>
+      <input type="hidden" id="nomeUsuario" name="nomeUsuario" class="form-control" value="{{$user->name}}"/>
     </div>
     <input type="hidden" name="idUsuario" class="form-control" value="{{$id}}"/>
   <div class="form-outline mb-4">

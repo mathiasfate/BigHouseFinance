@@ -43,6 +43,7 @@ class CarteiraController extends Controller
     {
         $carteira = new Carteira([
             'idUsuario' => $request->input('idUsuario'),
+            'nomeUsuario' => $request->input('nomeUsuario'),
             'saldo' => $request->input('saldo')
         ]);
 

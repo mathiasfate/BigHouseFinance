@@ -19,8 +19,8 @@ return new class extends Migration
             $table->float('valor', 8,2);
             $table->timestamps();
 
-            $table->foreign('idRemetente')->references('id')->on('carteira');
-            $table->foreign('idDestinatario')->references('id')->on('carteira');
+            $table->foreign('idRemetente')->references('id')->on('carteira')->onDelete('cascade');
+            $table->foreign('idDestinatario')->references('id')->on('carteira')->onDelete('cascade');
         });
     }
 

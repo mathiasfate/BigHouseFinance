@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('carteira', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUsuario');
+            $table->string('nomeUsuario');
             $table->float('saldo', 8, 2);
             $table->timestamps();
 
-            $table->foreign('idUsuario')->references('id')->on('users');
+            $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');;
         });
     }
 

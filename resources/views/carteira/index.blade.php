@@ -20,7 +20,7 @@
                 @foreach ($carteiras as $carteira)
                     <tr>
                         <td class="colunas">{{ $carteira->id }}</td>
-                        <td id="nome">{{ $carteira->idUsuario }}</td>
+                        <td id="nome">{{ $carteira->nomeUsuario }}</td>
                         <td>{{ $carteira->saldo }}</td>
                         <td>
                             <a href="{{ route('carteira.show', $carteira->id) }}" class="btn btn-warning">Acessar</a>

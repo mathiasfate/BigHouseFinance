@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Carteira extends Model
 {
     protected $table = 'carteira';
-    protected $fillable = ['idUsuario', 'saldo'];
+    protected $fillable = ['idUsuario', 'nomeUsuario', 'saldo'];
     use HasFactory;
 }
