@@ -28,8 +28,27 @@
 }
 .cardText{
     display: inline-block;
-    width: 270px;
+    width: 75px;
     text-overflow: "";
+    margin-left: 15px;
+}
+.cardNumber{
+    width: 210px;
+}
+.cardTextTransfer{
+    display: inline-block;
+    width: 145px;
+    text-overflow: "";
+    margin-left: 15px;
+}
+.dataText{
+    margin-left: 45px;
+}
+.titleText{
+    margin-left: 14px;
+}
+.cardNumberTransfer{
+    width: 140px;
 }
 .scrollBoxEditButton{
     width: 48px; 

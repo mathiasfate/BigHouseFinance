@@ -10,12 +10,9 @@
     @csrf
     <div class="form-outline mb-4">
       <label class="form-label" for="form6Example1">Nome: </label>
-      <input type="text" id="form6Example1" class="form-control" />
+      <input type="text" id="form6Example1" class="form-control" value="{{$user->name}}" disabled/>
     </div>
-  <div class="form-outline mb-4">
-    <label class="form-label" for="idUsuario">Id do usuário: </label>
-    <input type="number" name="idUsuario" class="form-control" />
-  </div>
+    <input type="hidden" name="idUsuario" class="form-control" value="{{$id}}"/>
   <div class="form-outline mb-4">
     <label class="form-label" for="saldo">Saldo inicial: </label>
     <input type="number" name="saldo" class="form-control" required />

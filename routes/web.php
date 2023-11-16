@@ -28,11 +28,7 @@ Route::resource('transferencia', TransferenciaController::class);
 Route::get('/', function () {
     return view('auth.login');
 });
-
-Route::put('/carteira/{$id}',[CarteiraController::class, 'transfer'])->name('carteira.transfer');
-
-Route::patch('/carteira/{$id}',[CarteiraController::class, 'calculate'])->name('carteira.calc');
-
+    
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

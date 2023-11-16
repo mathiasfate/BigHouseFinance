@@ -35,7 +35,7 @@ class DespesaController extends Controller
         ]);
 
         $despesa->save();
-        return redirect()->route('carteira.index');
+        return redirect()->route('carteira.show', $request->input('idCarteira'));
     }
 
     /**
@@ -69,6 +69,6 @@ class DespesaController extends Controller
     {
         $despesa = Despesa::findOrFail($id);
         $despesa->delete();
-        return redirect()->route('carteira.index');
+        return redirect()->route('carteira.show', $despesa->idCarteira);
     }
 }

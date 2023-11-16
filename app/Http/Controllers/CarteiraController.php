@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Carteira;
 use App\Models\Despesa;
 use App\Models\Receita;
+use App\Models\Transferencia;
 use App\Models\User;
 
 class CarteiraController extends Controller
@@ -14,8 +15,14 @@ class CarteiraController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $carteiras = Carteira::all()->sortBy('id');
+    {   
+        $user = Auth::user();
+        $id = Auth::id();
+        if($id == 1){
+            $carteiras = Carteira::all()->sortBy('id');
+            return view('carteira.index', compact('carteiras')); 
+        }
+        $carteiras = Carteira::all()->where('idUsuario', $id)->sortBy('id');
         return view('carteira.index', compact('carteiras'));
     }
 
@@ -24,7 +31,9 @@ class CarteiraController extends Controller
      */
     public function create()
     {
-        return view('carteira.create');
+        $user = Auth::user();
+        $id = Auth::id();
+        return view('carteira.create', compact('id', 'user'));
     }
 
     /**
@@ -38,7 +47,7 @@ class CarteiraController extends Controller
         ]);
 
         $carteira->save();
-        return redirect()->route('carteira.index');
+        return redirect()->route('carteira.show', $carteira->id);
     }
 
     /**
@@ -51,7 +60,8 @@ class CarteiraController extends Controller
          $user = User::findOrFail($carteira->idUsuario);
          $despesas = Despesa::all()->where('idCarteira', $id);
          $receitas = Receita::all()->where('idCarteira', $id);
-         return view('carteira.carteira', compact('carteira', 'despesas', 'receitas', 'user', 'listaCarteiras'));
+         $transferencias = Transferencia::where('idRemetente', $carteira->id)->orWhere('idDestinatario', $carteira->id)->orderBy('dataTransferencia', 'desc')->get();
+         return view('carteira.carteira', compact('carteira', 'despesas', 'receitas', 'user', 'listaCarteiras', 'transferencias'));
     }
 
     /**
@@ -67,27 +77,40 @@ class CarteiraController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $carteira = Carteira::findOrFail($id);
-        $carteira->saldo = $request->input('valor') + $carteira->saldo; 
-        $carteira->save();
-        return redirect()->route('carteira.index');
-    }
+        //deposito
+        if($request->input('func') == 1){
+            $carteira = Carteira::findOrFail($id);
+            $carteira->saldo = $request->input('valor') + $carteira->saldo; 
+            $carteira->save();
+            return redirect()->route('carteira.show', $id);
+        }
+        //transferencia
+        if($request->input('func') == 2){
+            $carteira = Carteira::findOrFail($id);
+            $carteira->saldo = $carteira->saldo - $request->input('valor'); 
+            $carteira->save();
+            $carteiraDestino = Carteira::findOrFail($request->input('carteiras'));
+            $carteiraDestino->saldo = $carteiraDestino->saldo + $request->input('valor');
+            $carteiraDestino->save();
+            $transferencia = new Transferencia([
+                'idRemetente' => $id,
+                'idDestinatario' => $request->input('carteiras'),
+                'dataTransferencia' => date('m/d/Y h:i:s a', time()),
+                'valor' => $request->input('valor')
 
-    public function transfer(Request $request, string $id)
-    {
-        $carteira = Carteira::findOrFail($id);
-        $carteira->saldo = $carteira->saldo - $request->input('valor'); 
-        $carteira->save();
-        return redirect()->route('carteira.index');
-    }
-
-    public function calculate(Request $request, string $id)
-    {
-        $valor = $request->input('valor');
-        $carteira = Carteira::findOrFail($id);
-        $carteira->saldo = $valor; 
-        $carteira->save();
-        return redirect()->route('carteira.index');
+            ]);
+            $transferencia->save();
+            return redirect()->route('carteira.show', $id);
+        }
+        //calcular balanco
+        if($request->input('func') == 3){
+            $carteira = Carteira::findOrFail($id);
+            $saldoFinal = $carteira->saldo - $request->input('totalDespesas');
+            $saldoFinal = $saldoFinal + $request->input('totalReceitas');
+            $carteira->saldo = $saldoFinal;
+            $carteira->save();
+            return redirect()->route('carteira.show', $id);
+        }
     }
     /**
      * Remove the specified resource from storage.

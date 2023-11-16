@@ -35,7 +35,7 @@ class ReceitaController extends Controller
         ]);
 
         $receita->save();
-        return redirect()->route('carteira.index');
+        return redirect()->route('carteira.show', $request->input('idCarteira'));
     }
 
     /**
@@ -69,6 +69,6 @@ class ReceitaController extends Controller
     {
         $receita = Receita::findOrFail($id);
         $receita->delete();
-        return redirect()->route('carteira.index');
+        return redirect()->route('carteira.show', $receita->idCarteira);
     }
 }
