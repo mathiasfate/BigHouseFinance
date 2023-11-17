@@ -18,7 +18,7 @@ class CarteiraController extends Controller
     {   
         $user = Auth::user();
         $id = Auth::id();
-        if($id == 1){
+        if($user->admin == "adminKey"){
             $carteiras = Carteira::all()->sortBy('id');
             return view('carteira.index', compact('carteiras')); 
         }
@@ -44,7 +44,7 @@ class CarteiraController extends Controller
         $carteira = new Carteira([
             'idUsuario' => $request->input('idUsuario'),
             'nomeUsuario' => $request->input('nomeUsuario'),
-            'saldo' => $request->input('saldo')
+            'saldo' => floatval(str_replace(',', '.', str_replace(',', '', $request->input('saldo'))))
         ]);
 
         $carteira->save();
@@ -57,7 +57,7 @@ class CarteiraController extends Controller
     public function show(string $id)
     {
          $carteira = Carteira::findOrFail($id);
-         $listaCarteiras = Carteira::all()->sortBy('id');
+         $listaCarteiras = Carteira::all()->where('id', '!=' , $id)->sortBy('id');
          $user = User::findOrFail($carteira->idUsuario);
          $despesas = Despesa::all()->where('idCarteira', $id);
          $receitas = Receita::all()->where('idCarteira', $id);
@@ -81,23 +81,23 @@ class CarteiraController extends Controller
         //deposito
         if($request->input('func') == 1){
             $carteira = Carteira::findOrFail($id);
-            $carteira->saldo = $request->input('valor') + $carteira->saldo; 
+            $carteira->saldo = floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor')))) + $carteira->saldo; 
             $carteira->save();
             return redirect()->route('carteira.show', $id);
         }
         //transferencia
         if($request->input('func') == 2){
             $carteira = Carteira::findOrFail($id);
-            $carteira->saldo = $carteira->saldo - $request->input('valor'); 
+            $carteira->saldo = $carteira->saldo - floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor')))); 
             $carteira->save();
             $carteiraDestino = Carteira::findOrFail($request->input('carteiras'));
-            $carteiraDestino->saldo = $carteiraDestino->saldo + $request->input('valor');
+            $carteiraDestino->saldo = $carteiraDestino->saldo + floatval(str_replace('.', ',', str_replace(',', '', $request->input('valor'))));
             $carteiraDestino->save();
             $transferencia = new Transferencia([
                 'idRemetente' => $id,
                 'idDestinatario' => $request->input('carteiras'),
-                'dataTransferencia' => date('m/d/Y h:i:s a', time()),
-                'valor' => $request->input('valor')
+                'dataTransferencia' => date('d/m/Y h:i:s a', time()),
+                'valor' => floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor'))))
 
             ]);
             $transferencia->save();

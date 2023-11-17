@@ -17,6 +17,27 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
+  String.prototype.reverse = function(){
+  return this.split('').reverse().join(''); 
+};
+
+function mascaraMoeda(campo,evento){
+  var tecla = (!evento) ? window.event.keyCode : evento.which;
+  var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+  var resultado  = "";
+  var mascara = "##,###,###.##".reverse();
+  for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+    if (mascara.charAt(x) != '#') {
+      resultado += mascara.charAt(x);
+      x++;
+    } else {
+      resultado += valor.charAt(y);
+      y++;
+      x++;
+    }
+  }
+  campo.value = resultado.reverse();
+}
   function modalDeposito(){
   Swal.fire({
   title: 'Depósito',
@@ -24,7 +45,7 @@
           @csrf
           @method('PUT')
           <input type="hidden" name="func" id="func" value="1" hide>
-          <input type="number" name="valor" id="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
+          <input type="text" onKeyUp="mascaraMoeda(this, event)" name="valor" id="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
           <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
           </form>`,
   showConfirmButton: false,
@@ -53,7 +74,7 @@ function modalTransferencia(){
           @endforeach  
           </select>
           <input type="hidden" name="func" id="func" value="2" hide>
-          <input type="number" id="valor" name="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
+          <input type="text" onKeyUp="mascaraMoeda(this, event)" id="valor" name="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
           <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
         </form>`,
   showConfirmButton: false,
@@ -74,19 +95,17 @@ function modalBalanco(){
     var totalDespesas = 0;
     for(var i=0;i<arrDespesas.length;i++){
         if(parseFloat(arrDespesas[i].innerHTML)){
-          totalDespesas += parseFloat(arrDespesas[i].innerHTML);
-            console.log(parseFloat(arrDespesas[i].innerHTML));
+          totalDespesas += parseFloat(arrDespesas[i].innerHTML.replaceAll(",", ""));
         }}
 
     var arrReceitas = document.getElementsByName('valorReceita');
     var totalReceitas = 0;
     for(var i=0;i<arrReceitas.length;i++){
         if(parseFloat(arrReceitas[i].innerHTML)){
-          totalReceitas += parseFloat(arrReceitas[i].innerHTML);
-            console.log(parseFloat(arrReceitas[i].innerHTML));
+          totalReceitas += parseFloat(arrReceitas[i].innerHTML.replaceAll(",", ""));
         }      
     }
-    var saldo = document.getElementById('saldoCarteira').value;
+    var saldo = document.getElementById('saldoCarteira').value.replaceAll(",", "");
     var saldoFinal = saldo - totalDespesas + totalReceitas;
   Swal.fire({
   title: 'Calcular balanço',
@@ -120,7 +139,7 @@ function modalDespesas(){
           <input name="nome" type="text" id="nome" class="swal2-input">
           <br>
           <label for="valor">Valor: </label>
-          <input name="valor" type="number" id="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
+          <input name="valor" type="text" onKeyUp="mascaraMoeda(this, event)" id="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
           <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
           </form>`,
   showConfirmButton: false,
@@ -150,7 +169,7 @@ function modalReceitas(){
           <input name="nome" type="text" id="nome" class="swal2-input">
           <br>
           <label for="valor">Valor: </label>
-          <input name="valor" type="number" id="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
+          <input name="valor" type="text" onKeyUp="mascaraMoeda(this, event)" id="valor" class="swal2-input" placeholder="R$ 0.00"><br><br>
           <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
           </form>`,
   showConfirmButton: false,
@@ -208,7 +227,7 @@ function modalExclusao(){
   </div>
   <div class="form-outline mb-4">
     <label class="form-label" for="saldo">Saldo: </label>
-    <input disabled value="{{ $carteira->saldo }}" type="number" name="saldo" id="saldoCarteira" class="form-control" />
+    <input disabled value="{{ preg_replace("/\B(?=(\d{3})+(?!\d))/i", "," , $carteira->saldo) }}" type="text" name="saldo" id="saldoCarteira" class="form-control" />
   </div>
   <div class="row">
     <div class="col-sm-8 text-left">
@@ -241,7 +260,7 @@ function modalExclusao(){
             Custo: R$
           </div>
           <div name="valorDespesa" class="summary cardNumber">
-            {{$despesa->valor}}
+          {{ preg_replace("/\B(?=(\d{3})+(?!\d))/i", "," , $despesa->valor) }}
           </div>
           </div>
         </div>
@@ -249,7 +268,7 @@ function modalExclusao(){
         @csrf
         @method('DELETE')
         <input type="hidden" name="idCarteira" id="idCarteira" value="{{$carteira->id}}">
-        <button type="submit" class="btn btn-danger scrollBoxDeleteButton"><span class="material-symbols-outlined">delete</span></button>
+        <button type="submit" class="btn btn-primary scrollBoxDeleteButton"><span class="material-symbols-outlined">delete</span></button>
         </form>
       </div>
     </div>
@@ -272,14 +291,14 @@ function modalExclusao(){
             Valor: R$
           </div>
           <div name="valorReceita" class="summary cardNumber">
-            {{$receita->valor}}
+          {{ preg_replace("/\B(?=(\d{3})+(?!\d))/i", "," , $receita->valor) }}
           </div>
           </div>
         </div>
         <form action="{{ route('receita.destroy', $receita->id) }}" method="POST">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger scrollBoxDeleteButton"><span class="material-symbols-outlined">delete</span></button>
+        <button type="submit" class="btn btn-primary scrollBoxDeleteButton"><span class="material-symbols-outlined">delete</span></button>
         </form>
       </div>
     </div>
@@ -302,7 +321,7 @@ function modalExclusao(){
           {{ $carteira->id == $transferencia->idRemetente ? 'Valor enviado: R$' : 'Valor recebido: R$'}}
           </div>
           <div name="valorReceita" class="summary cardNumberTransfer">
-            {{$transferencia->valor}}
+          {{ preg_replace("/\B(?=(\d{3})+(?!\d))/i", "," , $transferencia->valor) }}
           </div>
           </div>
         </div>

@@ -31,7 +31,7 @@ class DespesaController extends Controller
         $despesa = new Despesa([
             'idCarteira' => $request->input('idCarteira'),
             'nome' => $request->input('nome'),
-            'valor' => $request->input('valor')
+            'valor' => floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor'))))
         ]);
 
         $despesa->save();

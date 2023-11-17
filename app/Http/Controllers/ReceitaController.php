@@ -31,7 +31,7 @@ class ReceitaController extends Controller
         $receita = new Receita([
             'idCarteira' => $request->input('idCarteira'),
             'nome' => $request->input('nome'),
-            'valor' => $request->input('valor')
+            'valor' => floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor'))))
         ]);
 
         $receita->save();

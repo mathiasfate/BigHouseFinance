@@ -21,13 +21,13 @@
                     <tr>
                         <td class="colunas">{{ $carteira->id }}</td>
                         <td id="nome">{{ $carteira->nomeUsuario }}</td>
-                        <td>{{ $carteira->saldo }}</td>
+                        <td>{{ preg_replace("/\B(?=(\d{3})+(?!\d))/i", "," , $carteira->saldo) }}</td>
                         <td>
-                            <a href="{{ route('carteira.show', $carteira->id) }}" class="btn btn-warning">Acessar</a>
+                            <a href="{{ route('carteira.show', $carteira->id) }}" class="btn btn-primary">Acessar</a>
                             <form action="{{ route('carteira.destroy', $carteira->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Excluir</button>
+                                <button type="submit" class="btn btn-primary">Excluir</button>
                             </form>
                         </td>
                     </tr>

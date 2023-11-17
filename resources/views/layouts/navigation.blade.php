@@ -6,17 +6,19 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center navIcon">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('carteira.index') }}">
                         <img src="https://pbs.twimg.com/media/F81pbfnWQAA6pwD?format=png&name=120x120" alt="Logo"></img>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
+                @if(Auth::user()->admin == "adminKey")
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('carteira.index')" :active="request()->routeIs('carteira.index')">
                         {{ __('Carteiras') }}

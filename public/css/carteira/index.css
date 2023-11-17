@@ -13,7 +13,8 @@
     border: 1px solid #ccc;
     text-align: left;
 }
-
+.btn-primary{color:#000000;background-color:#F3F4F6;border-color:#000000}
+.btn-primary:hover{color:#000000;background-color:#fff;border-color:#000000}
 .table th {
     background-color: #f2f2f2;
     font-weight: bold;
@@ -30,15 +31,10 @@
     white-space: nowrap;
     vertical-align: middle;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1px solid;
     border-radius: 4px;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
 
 .btn-info {
     color: #fff;

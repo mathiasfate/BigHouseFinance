@@ -7,6 +7,7 @@ use App\Http\Controllers\CarteiraController;
 use App\Http\Controllers\DespesaController;
 use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\TransferenciaController;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +31,10 @@ Route::get('/', function () {
 });
     
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if(Auth::user()->admin == "adminKey"){
+        $users = User::all();
+        return view('dashboard', compact('users'));
+    } else return redirect()->route('carteira.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
