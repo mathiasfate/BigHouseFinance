@@ -30,11 +30,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
     
-Route::get('/dashboard', function () {
-    if(Auth::user()->admin == "adminKey"){
-        $users = User::all();
-        return view('dashboard', compact('users'));
-    } else return redirect()->route('carteira.index');
+Route::get('/dashboard', function () { return redirect()->route('carteira.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

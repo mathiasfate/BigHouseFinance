@@ -21,6 +21,13 @@
                         <td id="nome">{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->admin }}</td>
+                        <td>
+                        <form action="{{ route('profile.destroy', $user->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-primary">Excluir</button>
+                        </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

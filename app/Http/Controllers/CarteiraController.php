@@ -41,6 +41,14 @@ class CarteiraController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'saldo.required' => 'É necessário preencher o saldo.'
+        ];
+
+        $request->validate([
+            'saldo' => 'required|string|max:16',
+        ],$messages);
+
         $carteira = new Carteira([
             'idUsuario' => $request->input('idUsuario'),
             'nomeUsuario' => $request->input('nomeUsuario'),
@@ -48,7 +56,7 @@ class CarteiraController extends Controller
         ]);
 
         $carteira->save();
-        return redirect()->route('carteira.show', $carteira->id);
+        return redirect()->route('carteira.show', $carteira->id)->with('success', 'Carteira criada com sucesso!');
     }
 
     /**
@@ -77,17 +85,32 @@ class CarteiraController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    {   
+        $messages = [
+            'valor.required' => 'É necessário preencher o valor.',
+            'carteiras.required' => 'É necessário preencher o destinatário.',
+            'valor.max' => 'O campo valor não pode ser superior a 99,999.99'
+        ];
+
         //deposito
         if($request->input('func') == 1){
+            $request->validate([
+                'valor' => 'required|string|max:9',
+            ],$messages);
             $carteira = Carteira::findOrFail($id);
             $carteira->saldo = floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor')))) + $carteira->saldo; 
             $carteira->save();
-            return redirect()->route('carteira.show', $id);
+            return redirect()->route('carteira.show', $id)->with('success', 'Depósito realizado com sucesso!');
         }
         //transferencia
         if($request->input('func') == 2){
             $carteira = Carteira::findOrFail($id);
+            if($carteira->saldo < floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor'))))){
+                return redirect()->route('carteira.show', $id)->withErrors("Saldo insuficiente!");
+            }
+            $request->validate([
+                'valor' => 'required|string|max:9',
+            ],$messages);
             $carteira->saldo = $carteira->saldo - floatval(str_replace(',', '.', str_replace(',', '', $request->input('valor')))); 
             $carteira->save();
             $carteiraDestino = Carteira::findOrFail($request->input('carteiras'));
@@ -101,16 +124,19 @@ class CarteiraController extends Controller
 
             ]);
             $transferencia->save();
-            return redirect()->route('carteira.show', $id);
+            return redirect()->route('carteira.show', $id)->with('success', 'Transferencia realizada com sucesso!');
         }
         //calcular balanco
         if($request->input('func') == 3){
             $carteira = Carteira::findOrFail($id);
             $saldoFinal = $carteira->saldo - $request->input('totalDespesas');
             $saldoFinal = $saldoFinal + $request->input('totalReceitas');
+            if($saldoFinal < 0){
+                return redirect()->route('carteira.show', $id)->withErrors("Saldo insuficiente!");
+            }
             $carteira->saldo = $saldoFinal;
             $carteira->save();
-            return redirect()->route('carteira.show', $id);
+            return redirect()->route('carteira.show', $id)->with('success', 'Balanço calculado com sucesso!');
         }
     }
     /**
@@ -120,6 +146,6 @@ class CarteiraController extends Controller
     {
          $carteira = Carteira::findOrFail($id);
          $carteira->delete();
-         return redirect()->route('carteira.index');
+         return redirect()->route('carteira.index')->with('success', 'Carteira excluída com sucesso!');;
     }
 }

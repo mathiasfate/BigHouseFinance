@@ -320,7 +320,7 @@ function modalExclusao(){
           <div class="summary cardTextTransfer">
           {{ $carteira->id == $transferencia->idRemetente ? 'Valor enviado: R$' : 'Valor recebido: R$'}}
           </div>
-          <div name="valorReceita" class="summary cardNumberTransfer">
+          <div name="valorTransferencia" class="summary cardNumberTransfer">
           {{ preg_replace("/\B(?=(\d{3})+(?!\d))/i", "," , $transferencia->valor) }}
           </div>
           </div>
